@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ashbourne Gym Membership Test")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f2a045bdee50bd6e962ae8d91b1feca0672caec0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ashbourne Gym Membership Test")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ashbourne Gym Membership Test")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

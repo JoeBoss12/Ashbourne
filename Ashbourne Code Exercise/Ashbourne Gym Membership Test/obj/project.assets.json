@@ -8,23 +8,23 @@
     "net7.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\andrew\\.nuget\\packages\\": {},
+    "C:\\Users\\JDUCR\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Andrew\\Code Tests\\Ashbourne Code Exercise\\Ashbourne Gym Membership Test\\Ashbourne Gym Membership Test.csproj",
+      "projectUniqueName": "C:\\Users\\JDUCR\\OneDrive\\Documents\\GitHub\\Ashbourne\\Ashbourne Code Exercise\\Ashbourne Gym Membership Test\\Ashbourne Gym Membership Test.csproj",
       "projectName": "Ashbourne Gym Membership Test",
-      "projectPath": "G:\\Andrew\\Code Tests\\Ashbourne Code Exercise\\Ashbourne Gym Membership Test\\Ashbourne Gym Membership Test.csproj",
-      "packagesPath": "C:\\Users\\andrew\\.nuget\\packages\\",
-      "outputPath": "G:\\Andrew\\Code Tests\\Ashbourne Code Exercise\\Ashbourne Gym Membership Test\\obj\\",
+      "projectPath": "C:\\Users\\JDUCR\\OneDrive\\Documents\\GitHub\\Ashbourne\\Ashbourne Code Exercise\\Ashbourne Gym Membership Test\\Ashbourne Gym Membership Test.csproj",
+      "packagesPath": "C:\\Users\\JDUCR\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\JDUCR\\OneDrive\\Documents\\GitHub\\Ashbourne\\Ashbourne Code Exercise\\Ashbourne Gym Membership Test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\andrew\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\JDUCR\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -32,12 +32,8 @@
         "net7.0-windows"
       ],
       "sources": {
-        "C:\\Ashbourne\\ClassLibs\\AlphaNuget": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "\\\\dc\\development\\DLL\\BetaPackages": {},
-        "\\\\dc\\development\\DLL\\Interfaces": {},
-        "\\\\dc\\development\\DLL\\ReleasePackages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -72,6 +68,24 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[7.0.20, 7.0.20]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
