@@ -41,6 +41,8 @@ namespace GymMembershipTest
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.membershipTypesBindingSource = new System.Windows.Forms.BindingSource();  // ADD THIS LINE
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembershipTypes)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMonthlyFee)).BeginInit();
@@ -189,6 +191,9 @@ namespace GymMembershipTest
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
+            // 
+            this.membershipTypesBindingSource.DataSource = typeof(Ashbourne_Gym_Membership_Test.Models.MembershipType);
+            // 
             // FrmMemberships
             // 
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -200,6 +205,7 @@ namespace GymMembershipTest
             this.Name = "FrmMemberships";
             this.Text = "Memberships";
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembershipTypes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.membershipTypesBindingSource)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMonthlyFee)).EndInit();
@@ -224,5 +230,6 @@ namespace GymMembershipTest
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.BindingSource membershipTypesBindingSource;
     }
 }

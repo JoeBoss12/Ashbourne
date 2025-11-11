@@ -33,6 +33,8 @@ namespace GymMembershipTest
             this.btnMembershipTypeSignups = new System.Windows.Forms.Button();
             this.btnMembersWithMembershipTypes = new System.Windows.Forms.Button();
             this.btnCountMembersPerMembershipType = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();  // ADD THIS LINE
+
             this.SuspendLayout();
             // 
             // rtbReports
@@ -80,9 +82,19 @@ namespace GymMembershipTest
             this.btnCountMembersPerMembershipType.Text = "Count Members per Membership Type";
             this.btnCountMembersPerMembershipType.UseVisualStyleBackColor = true;
             // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(424, 315);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(200, 29);
+            this.btnExport.TabIndex = 5;
+            this.btnExport.Text = "Export Report";
+            this.btnExport.UseVisualStyleBackColor = true;
+            // 
             // ReportForm
             // 
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnExport);
             this.Controls.Add(this.btnCountMembersPerMembershipType);
             this.Controls.Add(this.btnMembersWithMembershipTypes);
             this.Controls.Add(this.btnMembershipTypeSignups);
@@ -101,5 +113,6 @@ namespace GymMembershipTest
         private System.Windows.Forms.Button btnMembershipTypeSignups;
         private System.Windows.Forms.Button btnMembersWithMembershipTypes;
         private System.Windows.Forms.Button btnCountMembersPerMembershipType;
+        private System.Windows.Forms.Button btnExport;
     }
 }

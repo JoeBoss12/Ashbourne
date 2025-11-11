@@ -43,9 +43,14 @@ namespace GymMembershipTest
             this.lblMembershipType = new System.Windows.Forms.Label();
             this.cmbMembershipType = new System.Windows.Forms.ComboBox();
             this.btnAdd = new System.Windows.Forms.Button();
+            this.btnUndo = new System.Windows.Forms.Button();  
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.membersBindingSource = new System.Windows.Forms.BindingSource();  // ADD THIS LINE
+
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembers)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).BeginInit();  // ADD THIS
+
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -210,9 +215,24 @@ namespace GymMembershipTest
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
             // 
+            // btnUndo
+            // 
+            this.btnUndo.Location = new System.Drawing.Point(550, 380);
+            this.btnUndo.Name = "btnUndo";
+            this.btnUndo.Size = new System.Drawing.Size(94, 29);
+            this.btnUndo.TabIndex = 5;
+            this.btnUndo.Text = "Undo";
+            this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Visible = false;
+            // 
+            // membersBindingSource
+            // 
+            this.membersBindingSource.DataSource = typeof(Ashbourne_Gym_Membership_Test.Models.Member);
+            // 
             // FrmMembers
             // 
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
@@ -221,6 +241,7 @@ namespace GymMembershipTest
             this.Name = "FrmMembers";
             this.Text = "Members";
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembers)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -244,5 +265,7 @@ namespace GymMembershipTest
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.Button btnUndo;
+        private System.Windows.Forms.BindingSource membersBindingSource;
     }
 }

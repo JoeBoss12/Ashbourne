@@ -13,6 +13,7 @@ namespace GymMembershipTest
             this.btnMembershipTypeSignups.Click += btnMembershipTypeSignups_Click;
             this.btnMembersWithMembershipTypes.Click += btnMembersWithMembershipTypes_Click;
             this.btnCountMembersPerMembershipType.Click += btnCountMembersPerMembershipType_Click;
+            this.btnExport.Click += btnExport_Click;
         }
 
         private void DisplayReport(string title, string content)
@@ -91,6 +92,33 @@ namespace GymMembershipTest
             }
 
             DisplayReport("Count Members per Membership Type", sb.ToString());
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(rtbReports.Text))
+            {
+                MessageBox.Show("Please generate a report first.", "No Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Text Files (*.txt)|*.txt|CSV Files (*.csv)|*.csv";
+                saveFileDialog.Title = "Export Report";
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        File.WriteAllText(saveFileDialog.FileName, rtbReports.Text);
+                        MessageBox.Show("Report exported successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error exporting report: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
         }
     }
 }

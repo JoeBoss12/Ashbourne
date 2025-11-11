@@ -9,7 +9,6 @@ namespace GymMembershipTest
         {
             InitializeComponent();
             this.Load += FrmMemberships_Load;
-            this.dgvMembershipTypes.SelectionChanged += dgvMembershipTypes_SelectionChanged;
             this.btnAdd.Click += btnAdd_Click;
             this.btnEdit.Click += btnEdit_Click;
             this.btnDelete.Click += btnDelete_Click;
@@ -18,6 +17,15 @@ namespace GymMembershipTest
         private async void FrmMemberships_Load(object sender, EventArgs e)
         {
             await LoadMembershipTypesAsync();
+            StyleDataGridView();
+        }
+
+        private void StyleDataGridView()
+        {
+            dgvMembershipTypes.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+            dgvMembershipTypes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMembershipTypes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMembershipTypes.MultiSelect = false;
         }
 
         private async Task LoadMembershipTypesAsync()
@@ -30,7 +38,8 @@ namespace GymMembershipTest
                     MockApiService apiService = new MockApiService();
                     GymDataStore.MembershipTypes = await apiService.GetMembershipTypesAsync();
                 }
-                dgvMembershipTypes.DataSource = new List<MembershipType>(GymDataStore.MembershipTypes); // Create a new list to refresh DataGridView
+                membershipTypesBindingSource.DataSource = GymDataStore.MembershipTypes;
+                dgvMembershipTypes.DataSource = membershipTypesBindingSource;
             }
             catch (Exception ex)
             {
@@ -40,9 +49,8 @@ namespace GymMembershipTest
 
         private void dgvMembershipTypes_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvMembershipTypes.SelectedRows.Count > 0)
+            if (membershipTypesBindingSource.Current is MembershipType selectedMembershipType)
             {
-                MembershipType selectedMembershipType = (MembershipType)dgvMembershipTypes.SelectedRows[0].DataBoundItem;
                 txtName.Text = selectedMembershipType.Name;
                 numMonthlyFee.Value = selectedMembershipType.MonthlyFee;
                 numInitialFee.Value = selectedMembershipType.InitialFee;
@@ -50,7 +58,7 @@ namespace GymMembershipTest
             }
         }
 
-        private async void btnAdd_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             if (!ValidateMembershipTypeInput())
             {
@@ -72,14 +80,13 @@ namespace GymMembershipTest
                 return;
             }
 
-            GymDataStore.MembershipTypes.Add(newMembershipType);
-            await LoadMembershipTypesAsync();
+            membershipTypesBindingSource.Add(newMembershipType);
             ClearMembershipTypeInput();
         }
 
-        private async void btnEdit_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (dgvMembershipTypes.SelectedRows.Count == 0)
+            if (membershipTypesBindingSource.Current is not MembershipType selectedMembershipType)
             {
                 MessageBox.Show("Please select a membership type to edit.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -89,8 +96,6 @@ namespace GymMembershipTest
             {
                 return;
             }
-
-            MembershipType selectedMembershipType = (MembershipType)dgvMembershipTypes.SelectedRows[0].DataBoundItem;
 
             if (GymDataStore.MembershipTypes.Any(mt => mt.MembershipTypeId != selectedMembershipType.MembershipTypeId && mt.Name.Equals(txtName.Text, StringComparison.OrdinalIgnoreCase)))
             {
@@ -111,19 +116,17 @@ namespace GymMembershipTest
             selectedMembershipType.InitialFee = numInitialFee.Value;
             selectedMembershipType.MaxMembers = (int)numMaxMembers.Value;
 
-            await LoadMembershipTypesAsync();
+            membershipTypesBindingSource.ResetBindings(false);
             ClearMembershipTypeInput();
         }
 
-        private async void btnDelete_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvMembershipTypes.SelectedRows.Count == 0)
+            if (membershipTypesBindingSource.Current is not MembershipType selectedMembershipType)
             {
                 MessageBox.Show("Please select a membership type to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            MembershipType selectedMembershipType = (MembershipType)dgvMembershipTypes.SelectedRows[0].DataBoundItem;
 
             // Prevent deletion if there are members signed up for this membership type
             if (GymDataStore.SignUps.Any(s => s.MembershipType.MembershipTypeId == selectedMembershipType.MembershipTypeId))
@@ -134,8 +137,7 @@ namespace GymMembershipTest
 
             if (MessageBox.Show("Are you sure you want to delete this membership type?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                GymDataStore.MembershipTypes.Remove(selectedMembershipType);
-                await LoadMembershipTypesAsync();
+                membershipTypesBindingSource.RemoveCurrent();
                 ClearMembershipTypeInput();
             }
         }

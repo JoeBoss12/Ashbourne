@@ -13,15 +13,24 @@ namespace GymMembershipTest
         {
             InitializeComponent();
             this.Load += FrmMembers_Load;
-            this.dgvMembers.SelectionChanged += dgvMembers_SelectionChanged;
             this.btnAdd.Click += btnAdd_Click;
             this.btnEdit.Click += btnEdit_Click;
             this.btnDelete.Click += btnDelete_Click;
+            this.btnUndo.Click += btnUndo_Click;
         }
 
         private async void FrmMembers_Load(object sender, EventArgs e)
         {
             await LoadMembersAsync();
+            StyleDataGridView();
+        }
+
+        private void StyleDataGridView()
+        {
+            dgvMembers.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;
+            dgvMembers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvMembers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvMembers.MultiSelect = false;
         }
 
         private async Task LoadMembersAsync()
@@ -31,8 +40,8 @@ namespace GymMembershipTest
                 GymDataStore.Members = await _apiService.GetMembersAsync();
                 GymDataStore.MembershipTypes = await _apiService.GetMembershipTypesAsync();
 
-                dgvMembers.DataSource = null;
-                dgvMembers.DataSource = GymDataStore.Members;
+                membersBindingSource.DataSource = GymDataStore.Members;
+                dgvMembers.DataSource = membersBindingSource;
 
                 cmbMembershipType.DataSource = null;
                 cmbMembershipType.DataSource = GymDataStore.MembershipTypes;
@@ -47,9 +56,8 @@ namespace GymMembershipTest
 
         private void dgvMembers_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvMembers.SelectedRows.Count > 0)
+            if (membersBindingSource.Current is Member selectedMember)
             {
-                Member selectedMember = (Member)dgvMembers.SelectedRows[0].DataBoundItem;
                 txtFirstName.Text = selectedMember.FirstName;
                 txtLastName.Text = selectedMember.LastName;
                 dtpDateOfBirth.Value = selectedMember.DateOfBirth;
@@ -60,8 +68,7 @@ namespace GymMembershipTest
 
         private void RefreshMembersGrid()
         {
-            dgvMembers.DataSource = null;
-            dgvMembers.DataSource = GymDataStore.Members;
+            membersBindingSource.ResetBindings(false);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -93,7 +100,7 @@ namespace GymMembershipTest
                 return;
             }
 
-            GymDataStore.Members.Add(newMember);
+            membersBindingSource.Add(newMember);
             GymDataStore.SignUps.Add(newSignUp);
             RefreshMembersGrid();
             ClearMemberInput();
@@ -102,7 +109,7 @@ namespace GymMembershipTest
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (dgvMembers.SelectedRows.Count == 0)
+            if (membersBindingSource.Current is not Member selectedMember)
             {
                 MessageBox.Show("Please select a member to edit.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -112,8 +119,6 @@ namespace GymMembershipTest
             {
                 return;
             }
-
-            Member selectedMember = (Member)dgvMembers.SelectedRows[0].DataBoundItem;
 
             // Check for duplicate email, excluding the current member
             if (GymDataStore.Members.Any(m => m.MemberId != selectedMember.MemberId &&
@@ -136,7 +141,7 @@ namespace GymMembershipTest
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvMembers.SelectedRows.Count == 0)
+            if (membersBindingSource.Current is not Member selectedMember)
             {
                 MessageBox.Show("Please select a member to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -144,11 +149,23 @@ namespace GymMembershipTest
 
             if (MessageBox.Show("Are you sure you want to delete this member?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Member selectedMember = (Member)dgvMembers.SelectedRows[0].DataBoundItem;
-                GymDataStore.Members.Remove(selectedMember);
+                GymDataStore.LastDeletedMember = selectedMember;
+                membersBindingSource.RemoveCurrent();
                 RefreshMembersGrid();
                 ClearMemberInput();
                 MessageBox.Show("Member deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnUndo.Visible = true;
+            }
+        }
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            if (GymDataStore.LastDeletedMember != null)
+            {
+                membersBindingSource.Add(GymDataStore.LastDeletedMember);
+                GymDataStore.LastDeletedMember = null;
+                RefreshMembersGrid();
+                btnUndo.Visible = false;
             }
         }
 
