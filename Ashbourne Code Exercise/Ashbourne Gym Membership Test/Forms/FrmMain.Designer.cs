@@ -34,9 +34,8 @@ namespace GymMembershipTest
             this.tabPageReports = new System.Windows.Forms.TabPage();
             this.tabControlMain.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabControlMain
-            // 
+             
+    
             this.tabControlMain.Controls.Add(this.tabPageMembers);
             this.tabControlMain.Controls.Add(this.tabPageMembershipTypes);
             this.tabControlMain.Controls.Add(this.tabPageReports);
@@ -46,9 +45,7 @@ namespace GymMembershipTest
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(800, 450);
             this.tabControlMain.TabIndex = 0;
-            // 
-            // tabPageMembers
-            // 
+ 
             this.tabPageMembers.Location = new System.Drawing.Point(4, 29);
             this.tabPageMembers.Name = "tabPageMembers";
             this.tabPageMembers.Padding = new System.Windows.Forms.Padding(3);
@@ -56,9 +53,7 @@ namespace GymMembershipTest
             this.tabPageMembers.TabIndex = 0;
             this.tabPageMembers.Text = "Members";
             this.tabPageMembers.UseVisualStyleBackColor = true;
-            // 
-            // tabPageMembershipTypes
-            // 
+       
             this.tabPageMembershipTypes.Location = new System.Drawing.Point(4, 29);
             this.tabPageMembershipTypes.Name = "tabPageMembershipTypes";
             this.tabPageMembershipTypes.Padding = new System.Windows.Forms.Padding(3);
@@ -66,9 +61,7 @@ namespace GymMembershipTest
             this.tabPageMembershipTypes.TabIndex = 1;
             this.tabPageMembershipTypes.Text = "Membership Types";
             this.tabPageMembershipTypes.UseVisualStyleBackColor = true;
-            // 
-            // tabPageReports
-            // 
+  
             this.tabPageReports.Location = new System.Drawing.Point(4, 29);
             this.tabPageReports.Name = "tabPageReports";
             this.tabPageReports.Padding = new System.Windows.Forms.Padding(3);
@@ -76,9 +69,7 @@ namespace GymMembershipTest
             this.tabPageReports.TabIndex = 2;
             this.tabPageReports.Text = "Reports";
             this.tabPageReports.UseVisualStyleBackColor = true;
-            // 
-            // FrmMain
-            // 
+   
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tabControlMain);
             this.Name = "FrmMain";

@@ -17,6 +17,7 @@ namespace GymMembershipTest
             this.btnEdit.Click += btnEdit_Click;
             this.btnDelete.Click += btnDelete_Click;
             this.btnUndo.Click += btnUndo_Click;
+            this.dgvMembers.SelectionChanged += dgvMembers_SelectionChanged;
         }
 
         private async void FrmMembers_Load(object sender, EventArgs e)
@@ -71,10 +72,39 @@ namespace GymMembershipTest
             membersBindingSource.ResetBindings(false);
         }
 
+        private bool IsMembershipTypeFull(MembershipType membershipType, int? excludeMemberId = null)
+        {
+            // Count current members with this membership type
+            int currentCount = GymDataStore.Members
+                .Count(m => m.MembershipType?.MembershipTypeId == membershipType.MembershipTypeId
+                         && (!excludeMemberId.HasValue || m.MemberId != excludeMemberId.Value));
+
+            return currentCount >= membershipType.MaxMembers;
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (!ValidateMemberInput())
             {
+                return;
+            }
+
+            MembershipType selectedMembershipType = (MembershipType)cmbMembershipType.SelectedItem;
+
+            // Check if membership type has reached maximum capacity
+            if (IsMembershipTypeFull(selectedMembershipType))
+            {
+                MessageBox.Show($"The '{selectedMembershipType.Name}' membership type has reached its maximum capacity of {selectedMembershipType.MaxMembers} members. Please select a different membership type.",
+                    "Membership Full",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Basic validation for duplicate email
+            if (GymDataStore.Members.Any(m => m.Email.Equals(txtEmail.Text.Trim(), StringComparison.OrdinalIgnoreCase)))
+            {
+                MessageBox.Show("A member with this email already exists.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -85,20 +115,14 @@ namespace GymMembershipTest
                 LastName = txtLastName.Text.Trim(),
                 DateOfBirth = dtpDateOfBirth.Value,
                 Email = txtEmail.Text.Trim(),
-                MembershipType = (MembershipType)cmbMembershipType.SelectedItem
+                MembershipType = selectedMembershipType
             };
+
             SignUp newSignUp = new SignUp
             {
                 Member = newMember,
-                MembershipType = (MembershipType)cmbMembershipType.SelectedItem
+                MembershipType = selectedMembershipType
             };
-
-            // Basic validation for duplicate email
-            if (GymDataStore.Members.Any(m => m.Email.Equals(newMember.Email, StringComparison.OrdinalIgnoreCase)))
-            {
-                MessageBox.Show("A member with this email already exists.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             membersBindingSource.Add(newMember);
             GymDataStore.SignUps.Add(newSignUp);
@@ -120,6 +144,21 @@ namespace GymMembershipTest
                 return;
             }
 
+            MembershipType selectedMembershipType = (MembershipType)cmbMembershipType.SelectedItem;
+
+            // Check if the membership type is being changed
+            bool membershipTypeChanged = selectedMember.MembershipType?.MembershipTypeId != selectedMembershipType.MembershipTypeId;
+
+            // If changing to a different membership type, check if it's full
+            if (membershipTypeChanged && IsMembershipTypeFull(selectedMembershipType, selectedMember.MemberId))
+            {
+                MessageBox.Show($"The '{selectedMembershipType.Name}' membership type has reached its maximum capacity of {selectedMembershipType.MaxMembers} members. Please select a different membership type.",
+                    "Membership Full",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+                return;
+            }
+
             // Check for duplicate email, excluding the current member
             if (GymDataStore.Members.Any(m => m.MemberId != selectedMember.MemberId &&
                                             m.Email.Equals(txtEmail.Text.Trim(), StringComparison.OrdinalIgnoreCase)))
@@ -132,7 +171,7 @@ namespace GymMembershipTest
             selectedMember.LastName = txtLastName.Text.Trim();
             selectedMember.DateOfBirth = dtpDateOfBirth.Value;
             selectedMember.Email = txtEmail.Text.Trim();
-            selectedMember.MembershipType = (MembershipType)cmbMembershipType.SelectedItem;
+            selectedMember.MembershipType = selectedMembershipType;
 
             RefreshMembersGrid();
             ClearMemberInput();

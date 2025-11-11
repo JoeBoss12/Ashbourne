@@ -47,16 +47,7 @@ namespace GymMembershipTest
             }
         }
 
-        private void dgvMembershipTypes_SelectionChanged(object sender, EventArgs e)
-        {
-            if (membershipTypesBindingSource.Current is MembershipType selectedMembershipType)
-            {
-                txtName.Text = selectedMembershipType.Name;
-                numMonthlyFee.Value = selectedMembershipType.MonthlyFee;
-                numInitialFee.Value = selectedMembershipType.InitialFee;
-                numMaxMembers.Value = selectedMembershipType.MaxMembers;
-            }
-        }
+     
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -83,7 +74,29 @@ namespace GymMembershipTest
             membershipTypesBindingSource.Add(newMembershipType);
             ClearMembershipTypeInput();
         }
+        private void dgvMembershipTypes_SelectionChanged(object sender, EventArgs e)
+        {
+            if (membershipTypesBindingSource.Current is MembershipType selectedMembershipType)
+            {
+                txtName.Text = selectedMembershipType.Name;
+                numMonthlyFee.Value = selectedMembershipType.MonthlyFee;
+                numInitialFee.Value = selectedMembershipType.InitialFee;
+                numMaxMembers.Value = selectedMembershipType.MaxMembers;
+            }
+            else
+            {
+                ClearMembershipInput();
+            }
+        }
 
+        private void ClearMembershipInput()
+        {
+            txtName.Clear();
+            numMonthlyFee.Value = 0;
+            numInitialFee.Value = 0;
+            numMaxMembers.Value = 0;
+            dgvMembershipTypes.ClearSelection();
+        }
         private void btnEdit_Click(object sender, EventArgs e)
         {
             if (membershipTypesBindingSource.Current is not MembershipType selectedMembershipType)

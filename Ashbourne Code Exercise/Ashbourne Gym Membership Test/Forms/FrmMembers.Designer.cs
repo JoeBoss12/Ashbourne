@@ -46,16 +46,15 @@ namespace GymMembershipTest
             this.btnUndo = new System.Windows.Forms.Button();  
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.membersBindingSource = new System.Windows.Forms.BindingSource();  // ADD THIS LINE
+            this.membersBindingSource = new System.Windows.Forms.BindingSource();
 
             ((System.ComponentModel.ISupportInitialize)(this.dgvMembers)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).BeginInit();  // ADD THIS
+            ((System.ComponentModel.ISupportInitialize)(this.membersBindingSource)).BeginInit();  
 
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dgvMembers
-            // 
+  
+            this.dgvMembers.AllowUserToAddRows = false;  
             this.dgvMembers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMembers.Dock = System.Windows.Forms.DockStyle.Top;
             this.dgvMembers.Location = new System.Drawing.Point(0, 0);
@@ -63,9 +62,7 @@ namespace GymMembershipTest
             this.dgvMembers.RowHeadersWidth = 51;
             this.dgvMembers.Size = new System.Drawing.Size(800, 250);
             this.dgvMembers.TabIndex = 0;
-            // 
-            // tableLayoutPanel1
-            // 
+
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75F));
@@ -89,9 +86,7 @@ namespace GymMembershipTest
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(500, 150);
             this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // lblFirstName
-            // 
+     
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblFirstName.Location = new System.Drawing.Point(3, 0);
@@ -100,17 +95,13 @@ namespace GymMembershipTest
             this.lblFirstName.TabIndex = 0;
             this.lblFirstName.Text = "First Name:";
             this.lblFirstName.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // txtFirstName
-            // 
+
             this.txtFirstName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtFirstName.Location = new System.Drawing.Point(128, 3);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(369, 27);
             this.txtFirstName.TabIndex = 1;
-            // 
-            // lblLastName
-            // 
+    
             this.lblLastName.AutoSize = true;
             this.lblLastName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblLastName.Location = new System.Drawing.Point(3, 30);
@@ -119,17 +110,13 @@ namespace GymMembershipTest
             this.lblLastName.TabIndex = 2;
             this.lblLastName.Text = "Last Name:";
             this.lblLastName.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // txtLastName
-            // 
+    
             this.txtLastName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtLastName.Location = new System.Drawing.Point(128, 33);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(369, 27);
             this.txtLastName.TabIndex = 3;
-            // 
-            // lblDateOfBirth
-            // 
+     
             this.lblDateOfBirth.AutoSize = true;
             this.lblDateOfBirth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblDateOfBirth.Location = new System.Drawing.Point(3, 60);
@@ -138,18 +125,15 @@ namespace GymMembershipTest
             this.lblDateOfBirth.TabIndex = 4;
             this.lblDateOfBirth.Text = "Date of Birth:";
             this.lblDateOfBirth.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // dtpDateOfBirth
-            // 
+             
+      
             this.dtpDateOfBirth.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtpDateOfBirth.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDateOfBirth.Location = new System.Drawing.Point(128, 63);
             this.dtpDateOfBirth.Name = "dtpDateOfBirth";
             this.dtpDateOfBirth.Size = new System.Drawing.Size(369, 27);
             this.dtpDateOfBirth.TabIndex = 5;
-            // 
-            // lblEmail
-            // 
+   
             this.lblEmail.AutoSize = true;
             this.lblEmail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblEmail.Location = new System.Drawing.Point(3, 90);
@@ -158,17 +142,13 @@ namespace GymMembershipTest
             this.lblEmail.TabIndex = 6;
             this.lblEmail.Text = "Email:";
             this.lblEmail.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // txtEmail
-            // 
+
             this.txtEmail.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtEmail.Location = new System.Drawing.Point(128, 93);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(369, 27);
             this.txtEmail.TabIndex = 7;
-            // 
-            // lblMembershipType
-            // 
+
             this.lblMembershipType.AutoSize = true;
             this.lblMembershipType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblMembershipType.Location = new System.Drawing.Point(3, 120);
@@ -177,9 +157,8 @@ namespace GymMembershipTest
             this.lblMembershipType.TabIndex = 8;
             this.lblMembershipType.Text = "Membership Type:";
             this.lblMembershipType.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // cmbMembershipType
-            // 
+          
+
             this.cmbMembershipType.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cmbMembershipType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbMembershipType.FormattingEnabled = true;
@@ -187,36 +166,36 @@ namespace GymMembershipTest
             this.cmbMembershipType.Name = "cmbMembershipType";
             this.cmbMembershipType.Size = new System.Drawing.Size(369, 28);
             this.cmbMembershipType.TabIndex = 9;
-            // 
-            // btnAdd
-            // 
+            
+            
+            
             this.btnAdd.Location = new System.Drawing.Point(550, 260);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(94, 29);
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
+            
+            
+            
             this.btnEdit.Location = new System.Drawing.Point(550, 300);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(94, 29);
             this.btnEdit.TabIndex = 3;
             this.btnEdit.Text = "Edit";
             this.btnEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
+            
+            
+            
             this.btnDelete.Location = new System.Drawing.Point(550, 340);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(94, 29);
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnUndo
-            // 
+            
+            
+            
             this.btnUndo.Location = new System.Drawing.Point(550, 380);
             this.btnUndo.Name = "btnUndo";
             this.btnUndo.Size = new System.Drawing.Size(94, 29);
@@ -224,13 +203,11 @@ namespace GymMembershipTest
             this.btnUndo.Text = "Undo";
             this.btnUndo.UseVisualStyleBackColor = true;
             this.btnUndo.Visible = false;
-            // 
-            // membersBindingSource
-            // 
+            
             this.membersBindingSource.DataSource = typeof(Ashbourne_Gym_Membership_Test.Models.Member);
-            // 
-            // FrmMembers
-            // 
+            
+            
+            
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.btnDelete);
