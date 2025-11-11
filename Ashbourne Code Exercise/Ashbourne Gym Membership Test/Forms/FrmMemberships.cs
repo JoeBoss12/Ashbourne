@@ -32,7 +32,6 @@ namespace GymMembershipTest
         {
             try
             {
-                // Ensure GymDataStore.MembershipTypes is populated from MockApiService
                 if (!GymDataStore.MembershipTypes.Any())
                 {
                     MockApiService apiService = new MockApiService();
@@ -116,7 +115,6 @@ namespace GymMembershipTest
                 return;
             }
 
-            // Enforce MaxMembers rule: cannot set MaxMembers less than current sign-ups
             int currentSignUps = GymDataStore.SignUps.Count(s => s.MembershipType.MembershipTypeId == selectedMembershipType.MembershipTypeId);
             if (numMaxMembers.Value < currentSignUps)
             {
@@ -141,7 +139,6 @@ namespace GymMembershipTest
                 return;
             }
 
-            // Prevent deletion if there are members signed up for this membership type
             if (GymDataStore.SignUps.Any(s => s.MembershipType.MembershipTypeId == selectedMembershipType.MembershipTypeId))
             {
                 MessageBox.Show("Cannot delete membership type as there are members signed up for it.", "Deletion Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
