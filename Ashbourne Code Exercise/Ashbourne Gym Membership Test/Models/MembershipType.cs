@@ -2,6 +2,10 @@
 {
     public class MembershipType
     {
-        //Set up your properties...
+        public int MembershipTypeId { get; set; }
+        public string Name { get; set; }
+        public decimal MonthlyFee { get; set; }
+        public decimal InitialFee { get; set; }
+        public int MaxMembers { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 {
     public class SignUp
     {
-        //Set up your properties...  
+        public Member Member { get; set; }
+        public MembershipType MembershipType { get; set; }
     }
 }
